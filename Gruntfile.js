@@ -134,6 +134,13 @@ module.exports = function(grunt) {
         }
       }
     },
+    sass: {
+      dev: {
+        files: {
+          'build/files/video-js.css': 'src/css/video-js.scss'
+        }
+      }
+    },
     karma: {
       // this config file applies to all following configs except if overwritten
       options: {
@@ -325,6 +332,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-s3');
   grunt.loadNpmTasks('contribflow');
   grunt.loadNpmTasks('grunt-karma');
@@ -338,11 +346,11 @@ module.exports = function(grunt) {
   // grunt.loadTasks('./docs/tasks/');
   // grunt.loadTasks('../videojs-doc-generator/tasks/');
 
-  grunt.registerTask('pretask', ['jshint', 'less', 'vjslanguages', 'build', 'minify', 'usebanner']);
+  grunt.registerTask('pretask', ['jshint', 'sass', 'vjslanguages', 'build', 'minify', 'usebanner']);
   // Default task.
   grunt.registerTask('default', ['pretask', 'dist']);
   // Development watch task
-  grunt.registerTask('dev', ['jshint', 'less', 'vjslanguages', 'build', 'qunit:source']);
+  grunt.registerTask('dev', ['jshint', 'sass', 'vjslanguages', 'build', 'qunit:source']);
   grunt.registerTask('test-qunit', ['pretask', 'qunit']);
 
   // The test task will run `karma:saucelabs` when running in travis,
@@ -535,7 +543,8 @@ module.exports = function(grunt) {
     grunt.file.copy('node_modules/videojs-swf/dist/video-js.swf', 'dist/video-js/video-js.swf');
     grunt.file.copy('build/demo-files/demo.html', 'dist/video-js/demo.html');
     grunt.file.copy('build/demo-files/demo.captions.vtt', 'dist/video-js/demo.captions.vtt');
-    grunt.file.copy('src/css/video-js.less', 'dist/video-js/video-js.less');
+    //grunt.file.copy('src/css/video-js.less', 'dist/video-js/video-js.less');
+    grunt.file.copy('src/css/video-js.scss', 'dist/video-js/_video-js.scss');
 
 
     // Copy over font files
